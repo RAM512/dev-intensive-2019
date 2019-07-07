@@ -45,8 +45,8 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         hours < 0 -> "через ${TimeUnits.HOUR.plural(hours.toInt())}"
         minutes > 0 -> "${TimeUnits.MINUTE.plural(minutes.toInt())} назад"
         minutes < 0 -> "через ${TimeUnits.MINUTE.plural(minutes.toInt())}"
-        timeDiff > 0 -> "недавно"
-        else -> "скоро"
+        timeDiff > 0 -> "несколько секунд назад"
+        else -> "через несколько секунд"
     }
 
 }
