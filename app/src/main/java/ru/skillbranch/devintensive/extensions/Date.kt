@@ -67,8 +67,8 @@ enum class TimeUnits {
                 if (is11to14)
                     "$absValue секунд"
                 else when (valMod10) {
-                    0 -> "0 секунд"
-                    1 -> "1 секунду"
+                    0 -> "$absValue секунд"
+                    1 -> "$absValue секунду"
                     in 2..4 -> "$absValue секунды"
                     else -> "$absValue секунд"
                 }
@@ -76,8 +76,8 @@ enum class TimeUnits {
                 if (is11to14)
                     "$absValue минут"
                 else when (valMod10) {
-                    0 -> "0 минут"
-                    1 -> "1 минуту"
+                    0 -> "$absValue минут"
+                    1 -> "$absValue минуту"
                     in 2..4 -> "$absValue минуты"
                     else -> "$absValue минут"
                 }
@@ -85,8 +85,8 @@ enum class TimeUnits {
                 if (is11to14)
                     "$absValue часов"
                 else when (valMod10) {
-                    0 -> "0 часов"
-                    1 -> "1 час"
+                    0 -> "$absValue часов"
+                    1 -> "$absValue час"
                     in 2..4 -> "$absValue часа"
                     else -> "$absValue часов"
                 }
@@ -94,8 +94,8 @@ enum class TimeUnits {
                 if (is11to14)
                     "$absValue дней"
                 else when (valMod10) {
-                    0 -> "0 дней"
-                    1 -> "1 день"
+                    0 -> "$absValue дней"
+                    1 -> "$absValue день"
                     in 2..4 -> "$absValue дня"
                     else -> "$absValue дней"
                 }
