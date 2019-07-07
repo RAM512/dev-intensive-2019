@@ -64,39 +64,31 @@ enum class TimeUnits {
         val valMod10 = absValue % 10
         return when (this) {
             SECOND ->
-                if (is11to14)
-                    "$absValue секунд"
-                else when (valMod10) {
-                    0 -> "$absValue секунд"
-                    1 -> "$absValue секунду"
-                    in 2..4 -> "$absValue секунды"
+                when {
+                    is11to14 -> "$absValue секунд"
+                    valMod10 == 1 -> "$absValue секунду"
+                    valMod10 in 2..4 -> "$absValue секунды"
                     else -> "$absValue секунд"
                 }
             MINUTE ->
-                if (is11to14)
-                    "$absValue минут"
-                else when (valMod10) {
-                    0 -> "$absValue минут"
-                    1 -> "$absValue минуту"
-                    in 2..4 -> "$absValue минуты"
+                when {
+                    is11to14 -> "$absValue минут"
+                    valMod10 == 1 -> "$absValue минуту"
+                    valMod10 in 2..4 -> "$absValue минуты"
                     else -> "$absValue минут"
                 }
             HOUR ->
-                if (is11to14)
-                    "$absValue часов"
-                else when (valMod10) {
-                    0 -> "$absValue часов"
-                    1 -> "$absValue час"
-                    in 2..4 -> "$absValue часа"
+                when {
+                    is11to14 -> "$absValue часов"
+                    valMod10 == 1 -> "$absValue час"
+                    valMod10 in 2..4 -> "$absValue часа"
                     else -> "$absValue часов"
                 }
             DAY ->
-                if (is11to14)
-                    "$absValue дней"
-                else when (valMod10) {
-                    0 -> "$absValue дней"
-                    1 -> "$absValue день"
-                    in 2..4 -> "$absValue дня"
+                when {
+                    is11to14 -> "$absValue дней"
+                    valMod10 == 1 -> "$absValue день"
+                    valMod10 in 2..4 -> "$absValue дня"
                     else -> "$absValue дней"
                 }
         }
