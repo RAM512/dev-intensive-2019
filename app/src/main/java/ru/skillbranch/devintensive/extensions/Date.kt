@@ -60,36 +60,42 @@ enum class TimeUnits {
 
     fun plural(value: Int): String {
         val absValue = abs(value)
+        val is11to14 = absValue % 100 in 11..14
+        val valMod10 = absValue % 10
         return when (this) {
             SECOND ->
-                if (absValue in 11..14)
+                if (is11to14)
                     "$absValue секунд"
-                else when (absValue % 10) {
-                    1 -> "секунду"
+                else when (valMod10) {
+                    0 -> "0 секунд"
+                    1 -> "1 секунду"
                     in 2..4 -> "$absValue секунды"
                     else -> "$absValue секунд"
                 }
             MINUTE ->
-                if (absValue in 11..14)
+                if (is11to14)
                     "$absValue минут"
-                else when (absValue % 10) {
-                    1 -> "минуту"
+                else when (valMod10) {
+                    0 -> "0 минут"
+                    1 -> "1 минуту"
                     in 2..4 -> "$absValue минуты"
                     else -> "$absValue минут"
                 }
             HOUR ->
-                if (absValue in 11..14)
+                if (is11to14)
                     "$absValue часов"
-                else when (absValue % 10) {
-                    1 -> "час"
+                else when (valMod10) {
+                    0 -> "0 часов"
+                    1 -> "1 час"
                     in 2..4 -> "$absValue часа"
                     else -> "$absValue часов"
                 }
             DAY ->
-                if (absValue in 11..14)
+                if (is11to14)
                     "$absValue дней"
-                else when (absValue % 10) {
-                    1 -> "день"
+                else when (valMod10) {
+                    0 -> "0 дней"
+                    1 -> "1 день"
                     in 2..4 -> "$absValue дня"
                     else -> "$absValue дней"
                 }
