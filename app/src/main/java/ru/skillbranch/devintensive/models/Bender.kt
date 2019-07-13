@@ -5,8 +5,21 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     fun askQuestion(): String = question.question
 
-    fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> =
-        if (question.answers.contains(answer.trim().toLowerCase())) {
+    fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
+        val trAnswer = answer.trim()
+
+        val checkOk = when (question) {
+            Question.NAME -> trAnswer.firstOrNull()?.isUpperCase() ?: false
+            Question.PROFESSION -> trAnswer.firstOrNull()?.isLowerCase() ?: false
+            Question.MATERIAL -> !trAnswer.contains("\\d".toRegex())
+            Question.BDAY -> !trAnswer.contains("\\D".toRegex())
+            Question.SERIAL -> trAnswer.length == 7 && !trAnswer.contains("\\D".toRegex())
+            Question.IDLE -> true
+        }
+        if (!checkOk)
+            return question.question to status.color
+
+        return if (question.answers.contains(trAnswer.toLowerCase())) {
             question = question.nextQuestion()
             "Отлично - это правильный ответ!\n${question.question}" to status.color
         } else {
@@ -21,6 +34,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 "Это неправильный ответ!\n${question.question}" to status.color
             }
         }
+    }
 
     enum class Status(val color: Triple<Int, Int, Int>) {
         NORMAL(Triple(255, 255, 255)),
@@ -62,6 +76,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     companion object Static {
-        val MAX_ERROR_COUNT = 4
+        const val MAX_ERROR_COUNT = 4
     }
 }
