@@ -105,7 +105,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")) {
             override fun nextQuestion() = BDAY
         },
-        BDAY("Когда меня создали?", listOf("2933")) {
+        BDAY("Когда меня создали?", listOf("2993")) {
             override fun nextQuestion() = SERIAL
         },
         SERIAL("Мой серийный номер?", listOf("2716057")) {
