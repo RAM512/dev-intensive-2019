@@ -119,6 +119,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     companion object Static {
-        const val MAX_ERROR_COUNT = 4
+        const val MAX_ERROR_COUNT = 3
     }
 }
