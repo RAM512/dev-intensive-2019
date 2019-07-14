@@ -14,7 +14,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
         return if (question.answers.contains(trAnswer.toLowerCase())) {
             question = question.nextQuestion()
-            "Отлично - это правильный ответ!\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}" to status.color
         } else {
             errorCount++
             if (errorCount >= MAX_ERROR_COUNT) {
@@ -66,6 +66,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     "Год моего рождения должен содержать только цифры"
                 }
             }
+
             Question.SERIAL -> {
                 val contains7Digits = trAnswer.length == 7 && !trAnswer.contains("\\D".toRegex())
                 if (contains7Digits) {
