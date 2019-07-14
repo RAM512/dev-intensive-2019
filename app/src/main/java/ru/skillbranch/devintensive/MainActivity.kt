@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -43,6 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         setContentView(R.layout.activity_main)
 
         benderImage = iv_bender
+        benderImage.setOnClickListener(this)
+
         textTxt = tv_text
 
         messageEt = et_message
@@ -158,8 +159,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == R.id.iv_send) {
-            sendAnswer()
+        when (v?.id) {
+            R.id.iv_send -> sendAnswer()
         }
     }
 
