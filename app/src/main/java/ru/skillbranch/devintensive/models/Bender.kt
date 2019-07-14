@@ -8,16 +8,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
         val trAnswer = answer.trim()
 
-        val checkOk = when (question) {
-            Question.NAME -> trAnswer.firstOrNull()?.isUpperCase() ?: false
-            Question.PROFESSION -> trAnswer.firstOrNull()?.isLowerCase() ?: false
-            Question.MATERIAL -> !trAnswer.contains("\\d".toRegex())
-            Question.BDAY -> !trAnswer.contains("\\D".toRegex())
-            Question.SERIAL -> trAnswer.length == 7 && !trAnswer.contains("\\D".toRegex())
-            Question.IDLE -> true
-        }
-        if (!checkOk)
-            return question.question to status.color
+        val validateMessage = validate(trAnswer)
+        if (validateMessage != "")
+            return "$validateMessage\n${question.question}" to status.color
 
         return if (question.answers.contains(trAnswer.toLowerCase())) {
             question = question.nextQuestion()
@@ -31,8 +24,57 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             } else {
                 status = status.nextStatus()
-                "Это неправильный ответ!\n${question.question}" to status.color
+                "Это неправильный ответ\n${question.question}" to status.color
             }
+        }
+    }
+
+    private fun validate(trAnswer: String): String {
+        return when (question) {
+            Question.NAME -> {
+                val firstIsUpperCase = trAnswer.firstOrNull()?.isUpperCase() != false
+                if (firstIsUpperCase) {
+                    ""
+                } else {
+                    "Имя должно начинаться с заглавной буквы"
+                }
+            }
+
+            Question.PROFESSION -> {
+                val firstIsLowerCase = trAnswer.firstOrNull()?.isLowerCase() != false
+                if (firstIsLowerCase) {
+                    ""
+                } else {
+                    "Профессия должна начинаться со строчной буквы"
+                }
+            }
+
+            Question.MATERIAL -> {
+                val containsDigits = trAnswer.contains("\\d".toRegex())
+                if (!containsDigits) {
+                    ""
+                } else {
+                    "Материал не должен содержать цифр"
+                }
+            }
+
+            Question.BDAY -> {
+                val containsLetters = trAnswer.contains("\\D".toRegex())
+                if (!containsLetters) {
+                    ""
+                } else {
+                    "Год моего рождения должен содержать только цифры"
+                }
+            }
+            Question.SERIAL -> {
+                val contains7Digits = trAnswer.length == 7 && !trAnswer.contains("\\D".toRegex())
+                if (contains7Digits) {
+                    ""
+                } else {
+                    "Серийный номер содержит только цифры, и их 7"
+                }
+            }
+            Question.IDLE -> "" // Ignore
         }
     }
 
@@ -56,7 +98,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         NAME("Как меня зовут?", listOf("бендер", "bender")) {
             override fun nextQuestion() = PROFESSION
         },
-        PROFESSION("Назови мою профессию.", listOf("сгибальщик", "bender")) {
+        PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")) {
             override fun nextQuestion() = MATERIAL
         },
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")) {
