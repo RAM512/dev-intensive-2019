@@ -25,6 +25,7 @@
             android:layout_marginBottom="@dimen/spacing_normal_16">
 
             <ImageButton
+                android:id="@+id/btn_night_mode"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginTop="36dp"
@@ -41,6 +42,7 @@
                 android:src="@drawable/avatar_default" />
 
             <ImageButton
+                android:id="@+id/btn_edit"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginLeft="@dimen/spacing_huge_32"
@@ -50,20 +52,20 @@
                 android:src="@drawable/ic_edit_black_24dp" />
 
             <TextView
+                android:id="@+id/tv_nick_name"
                 style="@style/Profile.Header.Nickname"
-                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_avatar"
                 android:layout_centerHorizontal="true"
-                android:text="John Doe"/>
+                android:text="John Doe" />
 
             <TextView
-                style="@style/Profile.Header.Rank"
                 android:id="@+id/tv_rank"
+                style="@style/Profile.Header.Rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
+                android:layout_below="@id/tv_nick_name"
                 android:layout_centerHorizontal="true"
                 android:text="Junior Android Developer" />
 
@@ -87,6 +89,7 @@
             android:paddingBottom="@dimen/spacing_normal_16">
 
             <TextView
+                android:id="@+id/tv_rating"
                 style="@style/Profile.Metrics.Value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +121,7 @@
             android:paddingBottom="@dimen/spacing_normal_16">
 
             <TextView
+                android:id="@+id/tv_respect"
                 style="@style/Profile.Metrics.Value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,8 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/profile_hint_first_name"
-                tools:text="John"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                tools:text="John" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,8 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/profile_hint_last_name"
-                tools:text="Doe"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:text="Doe" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,8 +205,10 @@
             android:src="@drawable/ic_about" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/wr_about"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal_16">
 
             <EditText
                 android:id="@+id/et_about"
@@ -236,7 +242,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_normal_16"
-            android:layout_marginRight="@dimen/spacing_normal_16"
             android:layout_weight="1">
 
             <EditText
@@ -245,14 +250,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/profile_hint_repository"
-                android:inputType="textUri"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:inputType="textUri" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
+            android:id="@+id/ic_eye"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_eye_24dp" />
 
