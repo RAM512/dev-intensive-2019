@@ -102,9 +102,10 @@ class ProfileActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (Utils.isGithubAccValid(p0)) {
-                    et_repository.error = null
+                    wr_repository.error = null
                 } else {
-                    et_repository.error = getString(R.string.profile_error_repository)
+                    wr_repository.error = getString(R.string.profile_error_repository)
+                    scroll.smoothScrollTo(0, scroll.bottom)
                 }
             }
         })
