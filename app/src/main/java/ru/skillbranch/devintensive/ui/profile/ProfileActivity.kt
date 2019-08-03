@@ -23,11 +23,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: ProfileViewModel
-    var isEditMode = false
-    lateinit var viewFields: Map<String, TextView>
+    private var isEditMode = false
+    private lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //TODO set custom Theme this before super and setContentView
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -35,9 +35,9 @@ class ProfileActivity : AppCompatActivity() {
         Log.d("M_ProfileActivity", "onCreate")
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
     private fun initViewModel() {
