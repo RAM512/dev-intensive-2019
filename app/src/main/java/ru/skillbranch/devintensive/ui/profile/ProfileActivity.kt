@@ -105,7 +105,7 @@ class ProfileActivity : AppCompatActivity() {
                     wr_repository.error = null
                 } else {
                     wr_repository.error = getString(R.string.profile_error_repository)
-                    scroll.scrollTo(0, scroll.bottom)
+//                    scroll.smoothScrollTo(0, scroll.bottom)
                 }
             }
         })
