@@ -4,6 +4,8 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
@@ -75,7 +78,13 @@ class ProfileActivity : AppCompatActivity() {
         showCurrentMode(isEditMode)
 
         btn_edit.setOnClickListener {
-            if (isEditMode) saveProfileInfo()
+            if (isEditMode) {
+
+                if (!Utils.isGithubAccValid(et_repository.text.toString())) {
+                    et_repository.text.clear()
+                }
+                saveProfileInfo()
+            }
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
         }
@@ -83,6 +92,22 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (Utils.isGithubAccValid(p0)) {
+                    et_repository.error = null
+                } else {
+                    et_repository.error = getString(R.string.profile_error_repository)
+                }
+            }
+        })
     }
 
     private fun showCurrentMode(isEdit: Boolean) {

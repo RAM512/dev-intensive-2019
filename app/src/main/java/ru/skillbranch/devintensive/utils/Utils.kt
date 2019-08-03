@@ -1,6 +1,21 @@
 package ru.skillbranch.devintensive.utils
 
 object Utils {
+
+    private val excludeRepoList = listOf("enterprise",
+            "features",
+            "topics",
+            "collections",
+            "trending",
+            "events",
+            "marketplace",
+            "pricing",
+            "nonprofit",
+            "customer-stories",
+            "security",
+            "login",
+            "join")
+
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         if (fullName == null || fullName == "" || fullName == " ")
             return null to null
@@ -36,5 +51,14 @@ object Utils {
         val f = firstName?.trim()?.firstOrNull()
         val l = lastName?.trim()?.firstOrNull()
         return if (f == null && l == null) null else "${f ?: ""}${l ?: ""}".toUpperCase()
+    }
+
+    fun isGithubAccValid(url: CharSequence?): Boolean {
+        val githubAccount = "(https://)?(www.)?github.com/[^/]+".toRegex()
+
+        return url != null && (url.isEmpty() ||
+                (githubAccount.matches(url)) &&
+                excludeRepoList.all { !url.contains("github.com/$it") }
+                )
     }
 }
