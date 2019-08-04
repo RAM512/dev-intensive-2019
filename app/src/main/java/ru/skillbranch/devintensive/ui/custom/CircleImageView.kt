@@ -36,18 +36,16 @@ class CircleImageView @JvmOverloads constructor(
                     R.styleable.CircleImageView_cv_borderColor,
                     DEFAULT_BORDER_COLOR
             )
-            borderWidth = pixToDp(
-                    a.getDimension(
-                            R.styleable.CircleImageView_cv_borderWidth,
-                            DEFAULT_BORDER_WIDTH_DP
-                    )
+            borderWidth = a.getDimension(
+                    R.styleable.CircleImageView_cv_borderWidth,
+                    DEFAULT_BORDER_WIDTH_DP
             )
             a.recycle()
         }
     }
 
     @Dimension
-    fun getBorderWidth(): Int = borderWidth.toInt()
+    fun getBorderWidth(): Int = pixToDp(borderWidth).toInt()
 
     fun setBorderWidth(@Dimension dp: Int) {
         borderWidth = dpToPix(dp.toFloat())
@@ -94,5 +92,5 @@ class CircleImageView @JvmOverloads constructor(
             resources.displayMetrics
     )
 
-    private fun pixToDp(px: Float): Float =  px / Resources.getSystem().displayMetrics.density
+    private fun pixToDp(px: Float): Float = px / Resources.getSystem().displayMetrics.density
 }
