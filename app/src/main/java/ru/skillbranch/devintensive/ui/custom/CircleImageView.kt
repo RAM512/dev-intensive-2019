@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.ui.custom
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -31,8 +32,16 @@ class CircleImageView @JvmOverloads constructor(
     init {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
-            borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, borderColor)
-            borderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, borderWidth)
+            borderColor = a.getColor(
+                    R.styleable.CircleImageView_cv_borderColor,
+                    DEFAULT_BORDER_COLOR
+            )
+            borderWidth = pixToDp(
+                    a.getDimension(
+                            R.styleable.CircleImageView_cv_borderWidth,
+                            DEFAULT_BORDER_WIDTH_DP
+                    )
+            )
             a.recycle()
         }
     }
@@ -84,4 +93,6 @@ class CircleImageView @JvmOverloads constructor(
             dp,
             resources.displayMetrics
     )
+
+    private fun pixToDp(px: Float): Float =  px / Resources.getSystem().displayMetrics.density
 }
