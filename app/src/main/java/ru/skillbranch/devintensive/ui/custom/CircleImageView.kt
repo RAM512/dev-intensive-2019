@@ -38,7 +38,7 @@ class CircleImageView @JvmOverloads constructor(
             )
             borderWidth = a.getDimension(
                     R.styleable.CircleImageView_cv_borderWidth,
-                    DEFAULT_BORDER_WIDTH_DP
+                    borderWidth
             )
             a.recycle()
         }
