@@ -60,6 +60,13 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
+        updateAvatarInitials()
+    }
+
+    private fun updateAvatarInitials() {
+        val fn = et_first_name.text.toString()
+        val ln = et_last_name.text.toString()
+        iv_avatar.setChars(Utils.toInitials(fn, ln))
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -83,6 +90,7 @@ class ProfileActivity : AppCompatActivity() {
                 if (!Utils.isGithubAccValid(et_repository.text.toString())) {
                     et_repository.text.clear()
                 }
+                updateAvatarInitials()
                 saveProfileInfo()
             }
             isEditMode = !isEditMode
