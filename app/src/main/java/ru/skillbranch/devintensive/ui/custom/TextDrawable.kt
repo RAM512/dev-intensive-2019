@@ -10,7 +10,6 @@ class TextDrawable : Drawable() {
     var textColor = Color.WHITE
 
     var paint = Paint().apply {
-        textSize = 170f // TODO calculate size in draw function
         isAntiAlias = true
         isFakeBoldText = true
         style = Paint.Style.FILL
@@ -23,6 +22,8 @@ class TextDrawable : Drawable() {
                 bounds,
                 paint.apply { color = backgroundColor }
         )
+
+        paint.textSize = bounds.width() * 0.5f
 
         val xPos = bounds.width() / 2f
         val yPos = (bounds.height() / 2 - (paint.descent() + paint.ascent()) / 2)
