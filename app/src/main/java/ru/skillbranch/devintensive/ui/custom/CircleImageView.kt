@@ -29,13 +29,6 @@ class CircleImageView @JvmOverloads constructor(
 
     private var borderColor = DEFAULT_BORDER_COLOR
     private var borderWidth = dpToPix(DEFAULT_BORDER_WIDTH_DP)
-    private var chars: String? = null
-
-    private var textDrawable = TextDrawable().apply {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
-        backgroundColor = ContextCompat.getColor(context, typedValue.resourceId)
-    }
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val clipPath = Path()
@@ -73,20 +66,6 @@ class CircleImageView @JvmOverloads constructor(
     fun setBorderColor(@ColorRes colorId: Int) {
         borderColor = resources.getColor(colorId, context.theme)
         invalidate()
-    }
-
-    fun getChars(): String? = chars
-
-    fun setChars(chars: String?) {
-        if (this.chars == chars) return
-
-        this.chars = chars
-        if (!chars.isNullOrBlank()) {
-            textDrawable.text = chars
-            setImageDrawable(textDrawable)
-        } else {
-            setImageResource(R.drawable.avatar_default)
-        }
     }
 
     override fun onDraw(canvas: Canvas?) {

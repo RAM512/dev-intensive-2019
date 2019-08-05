@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.ui.custom.TextDrawable
 import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
@@ -28,6 +31,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: ProfileViewModel
     private var isEditMode = false
     private lateinit var viewFields: Map<String, TextView>
+
+    private lateinit var textDrawable: TextDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -66,7 +71,14 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateAvatarInitials() {
         val fn = et_first_name.text.toString()
         val ln = et_last_name.text.toString()
-        iv_avatar.setChars(Utils.toInitials(fn, ln))
+        val chars = Utils.toInitials(fn, ln)
+
+        if (chars.isNullOrBlank()) {
+            iv_avatar.setImageResource(R.drawable.avatar_default)
+        } else {
+            textDrawable.text = chars
+            iv_avatar.setImageDrawable(textDrawable)
+        }
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -80,6 +92,12 @@ class ProfileActivity : AppCompatActivity() {
                 "rating" to tv_rating,
                 "respect" to tv_respect
         )
+
+        textDrawable = TextDrawable().apply {
+            val typedValue = TypedValue()
+            theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
+            backgroundColor = ContextCompat.getColor(this@ProfileActivity, typedValue.resourceId)
+        }
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
