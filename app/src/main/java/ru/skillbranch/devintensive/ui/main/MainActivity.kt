@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         touchHelper.attachToRecyclerView(rv_chat_list)
 
         fab.setOnClickListener {
-            viewModel.addItems()
         }
     }
 
