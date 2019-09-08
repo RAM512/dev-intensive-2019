@@ -23,7 +23,7 @@ class TextDrawable : Drawable() {
                 paint.apply { color = backgroundColor }
         )
 
-        paint.textSize = bounds.width() * 0.5f
+        paint.textSize = bounds.width() * 0.4f
 
         val xPos = bounds.width() / 2f
         val yPos = (bounds.height() / 2 - (paint.descent() + paint.ascent()) / 2)

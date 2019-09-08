@@ -16,6 +16,8 @@ import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.view.*
 
 class CircleImageView @JvmOverloads constructor(
         context: Context,
@@ -33,6 +35,8 @@ class CircleImageView @JvmOverloads constructor(
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val clipPath = Path()
 
+    private var textDrawable: TextDrawable
+
     init {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
@@ -45,6 +49,12 @@ class CircleImageView @JvmOverloads constructor(
                     borderWidth
             )
             a.recycle()
+        }
+
+        textDrawable = TextDrawable().apply {
+            val typedValue = TypedValue()
+            context.theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
+            backgroundColor = ContextCompat.getColor(context, typedValue.resourceId)
         }
     }
 
@@ -66,6 +76,15 @@ class CircleImageView @JvmOverloads constructor(
     fun setBorderColor(@ColorRes colorId: Int) {
         borderColor = resources.getColor(colorId, context.theme)
         invalidate()
+    }
+
+    fun setInitials(chars: String?) {
+        if (chars.isNullOrBlank()) {
+            setImageResource(R.drawable.avatar_default)
+        } else {
+            textDrawable.text = chars
+            setImageDrawable(textDrawable)
+        }
     }
 
     override fun onDraw(canvas: Canvas?) {
