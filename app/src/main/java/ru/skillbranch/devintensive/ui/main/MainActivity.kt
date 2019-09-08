@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.ui.group.GroupActivity
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             val chatId = it.id
             viewModel.addToArchive(chatId)
             Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
-                    .setAction("ОТМЕНА") { viewModel.removeFromArchive(chatId) }
+                    .setAction("ОТМЕНА") { viewModel.restoreFromArchive(chatId) }
                     .show()
         }
 
@@ -67,9 +66,5 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getChatData().observe(this, Observer { chatAdapter.updateData(it) })
-    }
-
-    private fun addChipToGroup(user: UserItem) {
-//        val chip = Chip()
     }
 }
