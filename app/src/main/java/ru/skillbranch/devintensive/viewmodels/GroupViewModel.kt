@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
@@ -53,7 +52,6 @@ class GroupViewModel : ViewModel() {
     }
 
     fun handleSearchQuery(text: String) {
-        Log.d("M_GroupViewModel", "handleSearchQuery $text")
         query.value = text
     }
 
